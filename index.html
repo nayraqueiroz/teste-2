@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido de Casamento</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #ff69b4; /* Rosa */
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        /* Botões de resposta */
+        .btn {
+            margin: 20px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: #ff69b4;
+            background-color: transparent;
+            border: 2px solid #ff69b4;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background-color: #ff69b4;
+            color: #000;
+        }
+
+        /* Coração oculto */
+        #coracao {
+            display: none;
+            font-size: 4em;
+            color: red;
+            margin-top: 20px;
+            animation: pulso 0.6s infinite;
+        }
+
+        /* Animação do coração */
+        @keyframes pulso {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Quer casar comigo?</h1>
+        <button class="btn" onclick="mostrarCoracao()">Sim</button>
+        <button class="btn" id="btnNao">Não</button>
+        <div id="coracao">❤️</div>
+    </div>
+
+    <script>
+        // Função para mostrar o coração
+        function mostrarCoracao() {
+            document.getElementById('coracao').style.display = 'block';
+        }
+
+        // Função para mover o botão "Não" quando o mouse se aproxima
+        document.addEventListener('mousemove', function(event) {
+            const btnNao = document.getElementById('btnNao');
+            const rect = btnNao.getBoundingClientRect();
+            const distancia = 100; // Distância para ativar o movimento
+
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            const btnX = rect.left + rect.width / 2;
+            const btnY = rect.top + rect.height / 2;
+
+            // Calcula a distância entre o mouse e o centro do botão "Não"
+            const deltaX = mouseX - btnX;
+            const deltaY = mouseY - btnY;
+            const distanciaMouseBtn = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            // Se o mouse estiver perto, move o botão para uma posição aleatória
+            if (distanciaMouseBtn < distancia) {
+                const x = Math.floor(Math.random() * 300) - 150;
+                const y = Math.floor(Math.random() * 300) - 150;
+                btnNao.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
